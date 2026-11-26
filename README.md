@@ -6,7 +6,6 @@ ExileCompass 本身不修改 PoB 的任何数据文件：启动时在临时目�
 
 - 当前版本：**0.1.1**
 - 适配对象：Path of Building Community (PoE2) 0.23.x
-- 技术栈：C++17 / Qt 6 (Widgets + Network) / CMake / MSVC / NSIS
 
 ***
 
@@ -15,7 +14,6 @@ ExileCompass 本身不修改 PoB 的任何数据文件：启动时在临时目�
 ### 1. 一键启动 PoB
 
 - 自动在指定根目录下递归扫描（默认 2 层）寻找 PoB 版本目录；
-- 校验目录特征：必须同时存在 `manifest.xml`、`Launch.lua`，且具备 `Data/`、`SimpleGraphic.dll` 或 `Path of Building-PoE2.exe` 之一；
 - 找到后一键启动，并自动完成汉化注入；
 - 支持在「版本列表」页手动指定扫描根目录，扫描结果会持久保存。
 
@@ -24,7 +22,6 @@ ExileCompass 本身不修改 PoB 的任何数据文件：启动时在临时目�
 - 不改动原 PoB 文件，进程内 hook 绘制函数，按词条实时翻译；
 - 支持占位符模板、`^8` 等颜色码、多行文本、`（PoB 暂不支持）` 后缀；
 - 汉化可开关，状态保存在 `QSettings`（`pobcn/enabled`）；
-- 词条可自行扩展，见「五、汉化机制」。
 
 ### 3. 图鉴（离线资料库）
 
@@ -43,4 +40,3 @@ ExileCompass 本身不修改 PoB 的任何数据文件：启动时在临时目�
 
 - 从 Release 的 `latest.json` 读取最新版本号、下载地址、体积与 SHA-256；
 - 下载完成后校验哈希，再调用安装包；
-- 更新源可在 `QSettings` 的 `update/manifestUrl` 覆盖，便于测试。
