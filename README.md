@@ -1,2 +1,46 @@
-# Exile-Compass
-A launcher &amp; codex for Path of Exile 2
+# ExileCompass · 流放指南针
+
+面向《流放之路 2》（Path of Exile 2）的 **Path of Building 启动器 + 运行时汉化 + 图鉴工具**。
+
+ExileCompass 本身不修改 PoB 的任何数据文件：启动时在临时目录生成引导脚本，在 PoB 加载 `Launch.lua` 之前注入汉化模块，用内置字体图集把英文实时渲染成中文；同时提供传奇/词缀/技能等资料的离线图鉴。
+
+- 当前版本：**0.1.1**
+- 适配对象：Path of Building Community (PoE2) 0.23.x
+- 技术栈：C++17 / Qt 6 (Widgets + Network) / CMake / MSVC / NSIS
+
+***
+
+## 一、主要功能
+
+### 1. 一键启动 PoB
+
+- 自动在指定根目录下递归扫描（默认 2 层）寻找 PoB 版本目录；
+- 校验目录特征：必须同时存在 `manifest.xml`、`Launch.lua`，且具备 `Data/`、`SimpleGraphic.dll` 或 `Path of Building-PoE2.exe` 之一；
+- 找到后一键启动，并自动完成汉化注入；
+- 支持在「版本列表」页手动指定扫描根目录，扫描结果会持久保存。
+
+### 2. 运行时汉化
+
+- 不改动原 PoB 文件，进程内 hook 绘制函数，按词条实时翻译；
+- 支持占位符模板、`^8` 等颜色码、多行文本、`（PoB 暂不支持）` 后缀；
+- 汉化可开关，状态保存在 `QSettings`（`pobcn/enabled`）；
+- 词条可自行扩展，见「五、汉化机制」。
+
+### 3. 图鉴（离线资料库）
+
+- 传奇装备、普通底子、通货、技能石 / 辅助宝石、碑文、地图、保险箱、先祖秘藏日志、遗物、精华与词缀等；
+- 支持按物品类型、来源、异界机制筛选，中英文关键词搜索；
+- 传奇词条内的专有名词（灵体、附身等）可点击查看说明；
+- 数据缓存在首次进入图鉴页时才构建，避免启动卡顿。
+
+### 4. 版本管理 / 公告 / 链接
+
+- 「版本列表」：浏览与切换 PoB 版本目录；
+- 「公告」：内置公告页，可用 `ExileCompass.exe` 同级的 `data/announcement.html` 覆盖更新（改完重启即生效）；
+- 「链接」：常用站点入口，可自定义编辑、恢复默认。
+
+### 5. 自动更新
+
+- 从 Release 的 `latest.json` 读取最新版本号、下载地址、体积与 SHA-256；
+- 下载完成后校验哈希，再调用安装包；
+- 更新源可在 `QSettings` 的 `update/manifestUrl` 覆盖，便于测试。
